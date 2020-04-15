@@ -13,15 +13,15 @@ gcc -O2 -omain_dl main_dl.c -ldl
 
 ### test
 
-echo "[C] load lapack user statically"
+echo "[C] load blas user statically"
 ./main
-echo "[C] load lapack user dynamically"
+echo "[C] load blas user dynamically"
 ./main_dl
-echo "[Python] load lapack user [cdll]"
+echo "[Python] load blas user [cdll]"
 python ./main_cdll.py
-echo "[Python] load lapack user [cdll] with modifying dlopenflags"
+echo "[Python] load blas user [cdll] with modifying dlopenflags"
 python ./main_cdll.py --dlopenflags
-echo "[Python] load lapack user [module]"
+echo "[Python] load blas user [module]"
 python ./main_module.py
-echo "[Python] load lapack user [module] with modifying dlopenflags"
+echo "[Python] load blas user [module] with modifying dlopenflags"
 python ./main_module.py --dlopenflags
