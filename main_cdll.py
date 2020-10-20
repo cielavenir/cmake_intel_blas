@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 import ctypes
 flag = ctypes.DEFAULT_MODE
@@ -7,4 +8,6 @@ if len(sys.argv)>1:
 
 dll=ctypes.CDLL("libfunc.so",flag)
 dll["func"]()
-
+#print('=== check cblas_dgemm below ===')
+#dll=ctypes.CDLL("libfunc_blas.so",flag)
+#dll["func"]()

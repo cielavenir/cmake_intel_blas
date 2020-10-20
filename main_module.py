@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 import ctypes
 if len(sys.argv)>1:
@@ -6,4 +7,6 @@ if len(sys.argv)>1:
 
 import libfunc as func
 func.func()
-
+#print('=== check cblas_dgemm below ===')
+#import libfunc_blas
+#libfunc_blas.func()

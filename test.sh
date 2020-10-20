@@ -8,6 +8,7 @@ if [ ! -f libfunc.so ]; then
     rm CMakeCache.txt Makefile cmake_install.cmake
 fi
 
+g++ -DNOMKLHACK -DMODULE_NAME=libfunc_blas -O2 -fPIC -shared -olibfunc_blas.so func.cpp -I/usr/include/python2.7 -lboost_python -lpython2.7 /usr/lib/libblas/libblas.so.3
 gcc -O2 -omain main.c libfunc.so
 gcc -O2 -omain_dl main_dl.c -ldl
 

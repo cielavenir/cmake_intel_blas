@@ -1,15 +1,21 @@
 /// https://www.r-ccs.riken.jp/wp-content/uploads/2019/05/nakata190523.pdf ///
 
+#ifndef MODULE_NAME
+#define MODULE_NAME libfunc
+#endif
+
 #include <boost/python.hpp>
 #include <stdio.h>
 #include <cblas.h>
-
 #include <dlfcn.h>
+
+#ifndef NOMKLHACK
 __attribute__((constructor)) static void fixcmakemkl(){
 	dlopen("libmkl_intel_lp64.so",RTLD_LAZY|RTLD_NOLOAD|RTLD_GLOBAL);
 	dlopen("libmkl_intel_thread.so",RTLD_LAZY|RTLD_NOLOAD|RTLD_GLOBAL);
 	dlopen("libmkl_core.so",RTLD_LAZY|RTLD_NOLOAD|RTLD_GLOBAL);
 }
+#endif
 
 //Matlab/Octave format
 void printmat(int N, int M, double *A, int LDA) {
@@ -21,6 +27,10 @@ if (i < N - 1) printf("]; ");     else printf("] ");
 printf("]");
 }
 extern "C" void func() {
+        Dl_info dlinfo;
+        dladdr((const void*)cblas_dgemm, &dlinfo);
+        printf("cblas_dgemm is from %s\n",dlinfo.dli_fname);
+
 int n = 3;
 double alpha, beta;
 double *A = new double[n*n]; double *B = new double[n*n]; double *C = new double[n*n];
@@ -46,7 +56,7 @@ namespace xxx {
 		::func();
 	}
 
-	BOOST_PYTHON_MODULE(libfunc)
+	BOOST_PYTHON_MODULE(MODULE_NAME)
 	{
 		def("func",func);
 	}
